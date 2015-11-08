@@ -1,37 +1,76 @@
-var myDataRef = new Firebase('https://FortNight.firebaseio.com/');
+    var ref = new Firebase("https://fortnight.firebaseio.com/");
+    function register(){
+        var usersRef = ref.child("users");
+        emailaddress =$('#emailaddress').val();
+        password = $('#password').val();
+        ref.createUser({
+            email    : emailaddress,
+            password : password
+            }, function(error, userData) {
+                if (error) {
+                    console.log("Error creating user:", error);
+                } else {
+                    console.log("Successfully created user account with uid:", userData.uid);
+                }
+            });
 
-//Login and Register
-function register(){
-    var usersRef = ref.child("users");
-    emailaddress =$('#emailaddress').val();
-    password = $('#password').val();
-    ref.createUser({
-        email    : emailaddress,
-        password : password
-        }, function(error, userData) {
-            if (error) {
-                console.log("Error creating user:", error);
-            } else {
-                console.log("Successfully created user account with uid:", userData.uid);
-            }
-        });
+
+var isNewUser = true;
+ref.onAuth(function(authData) {
+    if (authData==null){
+        isNewUser = true;
+    }
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+    ref.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData)
+    });
+  }
+});
+// find a suitable name based on the meta info given by each provider
+function getName(authData) {
+  switch(authData.provider) {
+     case 'password':
+       return authData.password.email.replace(/@.*/, '');
+     case 'twitter':
+       return authData.twitter.displayName;
+     case 'facebook':
+       return authData.facebook.displayName;
+  }
 }
-function loginlol(){
-    var usersRef = ref.child("users");
-    emailaddress =$('#emailaddress').val();
-    password = $('#password').val();
-    ref.authWithPassword({
-        email    : emailaddress,
-        password : password
-        }, function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-            }
-        });
-    window.location.replace("calendar.html");
-}
+
+    }
+
+    function login(){
+        var usersRef = ref.child("users");
+        emailaddress =$('#emailaddress').val();
+        password = $('#password').val();
+        ref.authWithPassword({
+            email    : emailaddress,
+            password : password
+            }, function(error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                    console.log("Authenticated successfully with payload:", authData);
+                    window.location.replace('calendar.html');
+                }
+            });
+
+
+
+
+    }
+
+    function logout() {
+        ref.unauth();
+    }
+
+
+//this makes sure user is online
+// Create a callback which logs the current auth state
 function authDataCallback(authData) {
   if (authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
@@ -44,9 +83,8 @@ function authDataCallback(authData) {
 var ref = new Firebase("https://fortnight.firebaseio.com/");
 ref.onAuth(authDataCallback);
 
-function logout() {
-    ref.unauth();
-}
+    
+   
 
 $('#loginwithfacebook').click(function() {
     myDataRef.authWithOAuthRedirect("facebook", function(error) {
@@ -63,4 +101,3 @@ $('#loginwithfacebook').click(function() {
 function saveEvent(uid) {
 
 }
-alert("hello");
