@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>FortNight</title>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.0.0/jquery.serialize-object.compiled.js"></script>
+</head>
+<body>
+<script>
+	var ref = new Firebase("https://fortnight.firebaseio.com/");
+	function register(){
+		var usersRef = ref.child("users");
+		emailaddress =$('#emailaddress').val();
+		password = $('#password').val();
+		ref.createUser({
+			email    : emailaddress,
+			password : password
+			}, function(error, userData) {
+				if (error) {
+					console.log("Error creating user:", error);
+				} else {
+					console.log("Successfully created user account with uid:", userData.uid);
+				}
+		   	});
+	}
+</script>
+<script>
+	function loginlol(){
+		var usersRef = ref.child("users");
+		emailaddress =$('#emailaddress').val();
+		password = $('#password').val();
+		ref.authWithPassword({
+  			email    : emailaddress,
+  			password : password
+			}, function(error, authData) {
+  				if (error) {
+   			 		console.log("Login Failed!", error);
+  				} else {
+    				console.log("Authenticated successfully with payload:", authData);
+  				}
+			});
+	}
+//this makes sure user is online
+// Create a callback which logs the current auth state
+function authDataCallback(authData) {
+  if (authData) {
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  } else {
+    console.log("User is logged out");
+  }
+}
+
+// Register the callback to be fired every time auth state changes
+var ref = new Firebase("https://fortnight.firebaseio.com/");
+ref.onAuth(authDataCallback);
+
+	
+   
+    </script>
+<form class="formlol" method="post">
+  <p>Email Address
+    <input type="text" name="emailaddress" id='emailaddress'>
+  </p>
+  <p>Password
+    <input type="password" name="password" id='password'>
+  </p>
+  <button type = "button" id="createaccount" onclick = 'register()'>Register</button>
+  <button type = "button" id="login" onclick = 'loginlol()'>Login</button>
+</form>
+</body>
+</html>
