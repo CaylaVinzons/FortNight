@@ -22,7 +22,45 @@
 					console.log("Successfully created user account with uid:", userData.uid);
 				}
 		   	});
+
+
+var isNewUser = true;
+ref.onAuth(function(authData) {
+	if (authData==null){
+		isNewUser = true;
 	}
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+    ref.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData)
+    });
+  }
+});
+// find a suitable name based on the meta info given by each provider
+function getName(authData) {
+  switch(authData.provider) {
+     case 'password':
+       return authData.password.email.replace(/@.*/, '');
+     case 'twitter':
+       return authData.twitter.displayName;
+     case 'facebook':
+       return authData.facebook.displayName;
+  }
+}
+
+	}
+
+function checkIfUserExists(userId) {
+	var usersRef = ref.child("users");
+  			usersRef.child(userId).once('value', function(snapshot) {
+  				alert(snapshot.val())
+    			//var exists = (snapshot.val() !== null);
+    			//userExistsCallback(userId, exists);
+    			return true;
+  			});
+		}
 
 	function login(){
 		var usersRef = ref.child("users");
@@ -38,11 +76,17 @@
     				console.log("Authenticated successfully with payload:", authData);
   				}
 			});
+
+
+
+
 	}
 
 	function logout() {
 		ref.unauth();
 	}
+
+
 //this makes sure user is online
 // Create a callback which logs the current auth state
 function authDataCallback(authData) {
@@ -57,8 +101,8 @@ function authDataCallback(authData) {
 var ref = new Firebase("https://fortnight.firebaseio.com/");
 ref.onAuth(authDataCallback);
 
-	
-   
+
+
     </script>
 <form class="formlol" method="post">
   <p>Email Address
