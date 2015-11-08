@@ -59,8 +59,6 @@ $('#loginwithfacebook').click(function() {
 });
 
 
-//Save objects
-function saveEvent(uid) {
+//Initial
 
-}
 alert("hello");
