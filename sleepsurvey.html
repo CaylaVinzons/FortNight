@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sleep Monitor</title>
+<meta name="author" content="Yeshy Manoharan" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" media="screen" href="bootstrap.min.css">
+<link rel="stylesheet" media="screen" href="bootstrap-clockpicker.min.css">
+<link rel="stylesheet" media="screen" href="github.min.css">
+<script src="bootstrap-clockpicker.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="jquery.min.js"></script>
+<script src="highlight.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+</head>
+<body>
+<div class="container">
+<div id="containertext">
+      <h1>Sleep Monitor</h1>
+      <p>Here are the rules. There are no rules.</p>
+      <p>Just update the form whenever you can. You don't have to fill out all of the boxes at the same time; in fact, it's preferred if you fill em out throughout the day (and night). </p>
+      <p>There's a datechecker thingie here, which means that you can change values so long as you do it on the same day you submitted your original response. </p>
+
+      <br>
+      <form id="sleep">
+        <div class="form-group">
+          
+          <label for="time">Time:</label>
+          <br>
+          <input style="width:100%;font-size:12pt;" type="time" class="form-control" id="time" name="name">
+          <br>
+          <label for="name">Category:</label>
+          <br>
+          <select id="category" name="category1" style="width:100%;font-size:12pt;">
+    		<option value="wake">Wake-Up Time</option>
+    		<option value="cogawake">Cognitive Wake</option>
+    		<option value="cogsleep">Cognitive Sleep</option>
+    		<option value="sleep">Sleep</option>
+  		  </select>
+          <br>
+          
+          
+          <br>
+          <button style="width:50%;font-size:12pt;margin:0 0 0 25%;"onClick="sleeprecord()">Submit</button>
+        </div>
+      </form>
+      
+
+<!-- Or just a input -->
+
+<!-- jQuery and Bootstrap scripts -->
+
+
+<!-- ClockPicker script -->
+    </div>
+  </div>
+  </body>

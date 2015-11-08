@@ -45,7 +45,7 @@ function getName(authData) {
 
 
 
-    function login(){
+    function login11(){
         var usersRef = ref.child("users");
         emailaddress =$('#emailaddress').val();
         password = $('#password').val();
