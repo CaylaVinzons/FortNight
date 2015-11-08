@@ -1,0 +1,43 @@
+ 	
+<html>
+<head>
+    <title>Calendar</title>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js'></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src='firebase.js'></script>
+    <script src='Storing.js'></script>
+
+</head>
+<body>
+    <script type="text/x-handlebars-template">
+    <ul>
+    	{{#classes}}
+    		<li>{{name}}</li>
+    	{{/classes}}
+    </ul>
+    </script>	
+
+	<form id='class-form'>
+		<input type='text' id='class-name'>
+		<input type='time' id='class-starttime'>
+		<input type='time' id='class-endtime'>
+		<p class='day'>S</p>
+		<input type='checkbox' id='sunday1' value='true'>
+		<p class='day'>M</p>
+		<input type='checkbox' id='monday1' value='true'>
+		<p class='day'>T</p>
+		<input type='checkbox' id='tuesday1' value='true'>
+		<p class='day'>W</p>
+		<input type='checkbox' id='wednesday1' value='true'>
+		<p class='day'>Th</p>
+		<input type='checkbox' id='thursday1' value='true'>
+		<p class='day'>F</p>
+		<input type='checkbox' id='friday1' value='true'>
+		<p class='day'>S</p>
+		<input type='checkbox' id='saturday1' value='true'>
+		<button type='button' onclick='saveClass()'>Submit</button>
+	</form>
+    <h1>Welcome to Your Calendar</h1>
+</body>
+</html>
