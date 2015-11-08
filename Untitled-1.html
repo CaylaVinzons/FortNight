@@ -23,9 +23,8 @@
 				}
 		   	});
 	}
-</script>
-<script>
-	function loginlol(){
+
+	function login(){
 		var usersRef = ref.child("users");
 		emailaddress =$('#emailaddress').val();
 		password = $('#password').val();
@@ -39,6 +38,10 @@
     				console.log("Authenticated successfully with payload:", authData);
   				}
 			});
+	}
+
+	function logout() {
+		ref.unauth();
 	}
 //this makes sure user is online
 // Create a callback which logs the current auth state
@@ -65,7 +68,8 @@ ref.onAuth(authDataCallback);
     <input type="password" name="password" id='password'>
   </p>
   <button type = "button" id="createaccount" onclick = 'register()'>Register</button>
-  <button type = "button" id="login" onclick = 'loginlol()'>Login</button>
+  <button type = "button" id="login1" onclick = 'login()'>Login</button>
+  <button type = "button" id="logout1" onclick = 'logout()'>Logout</button>
 </form>
 </body>
 </html>
